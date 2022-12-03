@@ -1,0 +1,177 @@
+<div class="m-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Formularios</h2>
+    </div>
+    <div class="col-md-6 text-end">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1" (click)="handleBasics()">Básicos</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2" (click)="handleDinamics()">Dinámicos</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3" (click)="handleSwitches()">Switches</label>
+      </div>
+    </div>
+  </div>
+  <!-- Formularios básicos -->
+  <div class="mt-4 mr-4" *ngIf="basics">
+    <form (ngSubmit)="saveBasics()" #formBasic="ngForm" autocomplete="off">
+
+      <div class="mb-3">
+        <label class="form-label">Producto</label>
+        <input type="text" class="form-control" placeholder="Nombre del producto" name="product"
+          [ngModel]="initFormBasic.product" required minlength="3">
+        <span class="form-text text-danger" *ngIf="invalidProduct()">
+          Debe ser de tres letras
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label">Precio</label>
+            <input type="number" class="form-control" placeholder="Precio del producto" name="price"
+              [ngModel]="initFormBasic.price" min="0">
+            <span class="form-text text-danger" *ngIf="invalidPrice()">
+              El precio debe ser mayor que 0
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label"> Existencias</label>
+            <input type="number" class="form-control" placeholder="Existencias del producto" name="stock"
+              [ngModel]="initFormBasic.stock" customMin [minValue]="0" required>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end" type="submit" [disabled]="formBasic.invalid">Guardar</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <span>Valid</span>
+        <pre>{{formBasic.valid}}</pre>
+
+        <!-- Indica si han cambiado los valores por defecto del formulario -->
+        <span>Pristine</span>
+        <pre>{{formBasic.pristine}}</pre>
+
+        <!-- Indica si el usuario ha tocado el formulario -->
+        <span>Touched</span>
+        <pre>{{formBasic.touched}}</pre>
+
+        <span>Value</span>
+        <pre> {{formBasic.value | json }}</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formularios dinámicos -->
+  <div class="mt-4 mr-4" *ngIf="dinamics">
+    <form autocomplete="off" #formDinamic="ngForm" (ngSubmit)="saveDinamics()">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" placeholder="Nombre" name="name" [(ngModel)]="person.name" required>
+        <span class="form-text text-danger" *ngIf="invalidName()">
+          Este campo es obligatorio
+        </span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Añadir juego</label>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Añadir juego" [(ngModel)]="newGame" name="newGame">
+          <button class="btn btn-outline-primary" type="button" (click)="addGame()">Añadir</button>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Lista de juegos favoritos</label>
+        <div class="input-group mt-2" *ngFor="let game of person.games; let i = index">
+          <input type="text" class="form-control" [(ngModel)]="game.name" name="game_{{i}}" required>
+          <button class="btn btn-outline-danger" type="button" (click)="deleteGame(i)">Eliminar</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end" type="submit" [disabled]="formDinamic.invalid">Guardar</button>
+        </div>
+      </div>
+    </form>
+
+    <span>Persona</span>
+    <pre>{{person | json}}</pre>
+
+  </div>
+  <div class="mt-4 mr-4" *ngIf="switches">
+    <form #formSwitches="ngForm">
+
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Género</label>
+        <div class="col-sm-9">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flexRadio1" value="M" name="gender"
+              [(ngModel)]="person.gender" required>
+            <label class="form-check-label" for="flexRadio1">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flexRadio2" value="F" name="gender"
+              [(ngModel)]="person.gender" required>
+            <label class="form-check-label" for="flexRadio2">
+              Femenino
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Notificaciones</label>
+        <div class="col-sm-9 mt-2">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck"
+              [(ngModel)]="person.notifications" name="notifications">
+            <label class="form-check-label" for="flexSwitchCheck">Deseo recibir notificaciones</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Términos y condiciones</label>
+        <div class="col-sm-9 mt-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheck" name="terms"
+              [(ngModel)]="person.terms" required>
+            <label class="form-check-label" for="flexCheck">
+              Aceptar términos y condiciones
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end" type="submit" [disabled]="formSwitches.invalid">Guardar</button>
+        </div>
+      </div>
+
+    </form>
+
+    <span>Valid</span>
+    <pre>{{formSwitches.valid}}</pre>
+
+    <span>Persona</span>
+    <pre>{{person | json}}</pre>
+
+  </div>
+</div>

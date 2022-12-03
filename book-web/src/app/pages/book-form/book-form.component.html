@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+
+    <h3 class="mb-3" *ngIf="!this.idBook">Nuevo libro</h3>
+    <h3 class="mb-3" *ngIf="this.idBook">Actualizar libro</h3>
+
+    <form class="row g-3" #bookForm="ngForm">
+
+      <div class="col-md-6">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" class="form-control" id="title" name="title" 
+          [(ngModel)]="book.title" required>
+        <span class="form-text text-danger" *ngIf="invalidInput('title')">
+          Este campo es obligatorio
+        </span>
+      </div>
+
+      <div class="col-md-6">
+        <label for="autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="autor" name="author" 
+          [(ngModel)]="book.author" required>
+        <span class="form-text text-danger" *ngIf="invalidInput('author')">
+          Este campo es obligatorio
+        </span>
+      </div>
+
+      <div class="col-6">
+        <label for="editorial" class="form-label">Editorial</label>
+        <input type="text" class="form-control" id="editorial" name="editorial" 
+          [(ngModel)]="book.editorial" required>
+        <span class="form-text text-danger" *ngIf="invalidInput('editorial')">
+          Este campo es obligatorio
+        </span>
+      </div>
+
+      <div class="col-6">
+        <label for="year" class="form-label">Año de publicación</label>
+        <input type="number" class="form-control" id="year" name="year" customMin [minValue]="1900"
+          [(ngModel)]="book.year" required>
+        <span class="form-text text-danger" *ngIf="invalidInput('year')">
+          El valor del campo no es correcto
+        </span>
+      </div>
+
+      <div class="col-md-6">
+        <label for="category" class="form-label">Categoría</label>
+        <input type="text" class="form-control" id="category" name="category" 
+          [(ngModel)]="book.category" required>
+        <span class="form-text text-danger" *ngIf="invalidInput('category')">
+          Este campo es obligatorio
+        </span>
+      </div>
+
+      <div class="col-md-6 mt-5 pt-2">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck" 
+            [(ngModel)]="book.read" name="read">
+          <label class="form-check-label" for="flexSwitchCheck">Libro leido</label>
+        </div>
+      </div>
+
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-secondary" routerLink="/libros">Cancelar</button>
+        &nbsp;
+        <button type="submit" class="btn btn-primary" 
+          [disabled]="bookForm.invalid" (click)="saveBook()" *ngIf="!idBook">Guardar</button>
+        <button type="submit" class="btn btn-primary" 
+          [disabled]="bookForm.invalid" (click)="updateBook()" *ngIf="idBook">Actualizar</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-1"></div>
+</div>
