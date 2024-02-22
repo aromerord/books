@@ -6,7 +6,7 @@
 
 ## Instalaciones
 - Angular Bootstrap `ng add @ng-bootstrap/ng-bootstrap`
-- Toast `npm i -g ngx-toastr --save`
+- Toast `npm i ngx-toastr --save`
 - Excel `npm i xlsx`
 ## Funcionalidades
 - CRUD utilizando forms
