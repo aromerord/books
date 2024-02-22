@@ -1,0 +1,56 @@
+<form (ngSubmit)="saveBasics()" #basicForm="ngForm" autocomplete="off">
+
+  <div class="mb-3">
+    <label class="form-label">Producto</label>
+    <input type="text" class="form-control" placeholder="Nombre del producto" name="product"
+      [ngModel]="initBasicForm.product" required minlength="3">
+    <span class="form-text text-danger" *ngIf="invalidProduct()">
+      Debe ser de tres letras
+    </span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" class="form-control" placeholder="Precio del producto" name="price"
+          [ngModel]="initBasicForm.price" min="0">
+        <span class="form-text text-danger" *ngIf="invalidPrice()">
+          El precio debe ser mayor que 0
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label class="form-label"> Existencias</label>
+        <input type="number" class="form-control" placeholder="Existencias del producto" name="stock"
+          [ngModel]="initBasicForm.stock" customMin [minValue]="0" required>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary float-end" type="submit" [disabled]="basicForm.invalid">Guardar</button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{basicForm.valid}}</pre>
+
+    <!-- Indica si han cambiado los valores por defecto del formulario -->
+    <span>Pristine</span>
+    <pre>{{basicForm.pristine}}</pre>
+
+    <!-- Indica si el usuario ha tocado el formulario -->
+    <span>Touched</span>
+    <pre>{{basicForm.touched}}</pre>
+
+    <span>Value</span>
+    <pre> {{basicForm.value | json }}</pre>
+  </div>
+</div>

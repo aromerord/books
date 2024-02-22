@@ -1,0 +1,35 @@
+<div class="m-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Formularios</h2>
+    </div>
+    <div class="col-md-6 text-end">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1" (click)="handleBasics()">Básicos</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2" (click)="handleDynamics()">Dinámicos</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3" (click)="handleSwitches()">Switches</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formularios básicos -->
+  <div class="mt-4 mr-4" *ngIf="basics">
+    <app-basic-forms></app-basic-forms>
+  </div>
+
+  <!-- Formularios dinámicos -->
+  <div class="mt-4 mr-4" *ngIf="dynamics">
+   <app-dynamic-forms></app-dynamic-forms>
+  </div>
+  
+  <!-- Switches -->
+  <div class="mt-4 mr-4" *ngIf="switches">
+    <app-switches-forms></app-switches-forms>
+  </div>
+
+</div>

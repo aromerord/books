@@ -1,0 +1,54 @@
+<div class="row">
+   <div class="col-md-4">
+      <h3>Lista de libros</h3>
+   </div>
+
+   <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Filtrar libros" name="title" 
+         [(ngModel)]="filterBooks" (input)="handleFilterTitle()">
+   </div>
+   
+   <div class="col-md-4 text-end">
+      <button type="button" class="btn btn-primary" (click)="exportExcel()"><i class="fa-solid fa-download"></i></button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" routerLink="/nuevo-libro">Añadir</button>
+   </div>
+</div>
+
+<table class="table table-striped mt-3">
+   <thead>
+      <tr>
+         <th scope="col">Título</th>
+         <th scope="col">Autor</th>
+         <th scope="col">Editorial</th>
+         <th scope="col">Categoría</th>
+         <th scope="col">Publicación</th>
+         <th scope="col">Leído</th>
+         <th scope="col">Acciones</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr *ngFor="let book of booksToShow | slice: (page-1) * pageSize : page * pageSize">
+         <td>{{book.title}}</td>
+         <td>{{book.author}}</td>
+         <td>{{book.editorial}}</td>
+         <td>{{book.category}}</td>
+         <td>{{book.year}}</td>
+         <td>{{book.read === true ? 'Si' : 'No'}}</td>
+         <td>
+            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal" (click)="setIdBookToDelete(book.uid)">Borrar</button>
+            &nbsp;
+            <button type="button" class="btn btn-success btn-sm" routerLink="/editar-libro/{{book.uid}}">Editar</button>
+         </td>
+      </tr>
+   </tbody>
+</table>
+<ngb-pagination 
+   [collectionSize]="booksToShow.length" 
+   [pageSize]="pageSize"
+   [(page)]="page" aria-label="Default pagination">
+</ngb-pagination>
+
+<app-book-modal uid={{idBook}} (bookModalEvent)="reloadTable($event)"></app-book-modal>
+
+

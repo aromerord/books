@@ -1,0 +1,59 @@
+<form #formSwitches="ngForm">
+
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Género</label>
+      <div class="col-sm-9">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadio1" value="M" name="gender"
+            [(ngModel)]="person.gender" required>
+          <label class="form-check-label" for="flexRadio1">
+            Masculino
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadio2" value="F" name="gender"
+            [(ngModel)]="person.gender" required>
+          <label class="form-check-label" for="flexRadio2">
+            Femenino
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Notificaciones</label>
+      <div class="col-sm-9 mt-2">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck"
+            [(ngModel)]="person.notifications" name="notifications">
+          <label class="form-check-label" for="flexSwitchCheck">Deseo recibir notificaciones</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Términos y condiciones</label>
+      <div class="col-sm-9 mt-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" name="terms"
+            [(ngModel)]="person.terms" required>
+          <label class="form-check-label" for="flexCheck">
+            Aceptar términos y condiciones
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary float-end" type="submit" [disabled]="formSwitches.invalid">Guardar</button>
+      </div>
+    </div>
+
+  </form>
+
+  <span>Valid</span>
+  <pre>{{formSwitches.valid}}</pre>
+
+  <span>Persona</span>
+  <pre>{{person | json}}</pre>
